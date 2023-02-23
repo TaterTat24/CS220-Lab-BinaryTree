@@ -22,28 +22,44 @@ int Max(int a, int b)
     return b;
 }
 
-BSTnode *insertBST(BSTnode *node, int item)
-{
+BSTnode *insertBST(BSTnode *node, int item) {
     if (node == NULL) {
         node = malloc(sizeof(BSTnode));
-        
+        node->data = item;
+        node->left = NULL;
+        node->right = NULL;
+        return node;
     }
     
+    if (item < node->data) {
+        node->left = insertBST(node->left, item);
+    } else {
+        node->right = insertBST(node->right,item);
+    }
+    return node;
 }
 
-void printInorderBST(BSTnode *node)
-{
+void printInorderBST(BSTnode *node) {
+    if (node != NULL) {
+        printInorderBST(node->left);
+        printf("%d ", node->data);
+        printInorderBST(node->right);
+    }
+}
+
+void printPreorderBST(BSTnode *node) {
+    if (node != NULL) {
+        printf("%d ", node->data);
+        printPreorderBST(node->left);
+        printPreorderBST(node->right);
+    }
+}
+
+void printPostorderBST(BSTnode *node) {
+    if (node != NULL) {
+        /* code */
+    }
     
-}
-
-void printPreorderBST(BSTnode *node)
-{
-
-}
-
-void printPostorderBST(BSTnode *node)
-{
-
 }
 
 BSTnode *searchBST(BSTnode *node, int item)
@@ -61,9 +77,12 @@ int sizeBST(BSTnode *node)
     return 0;
 }
 
-int heightBST(BSTnode *curr)
-{
-    return 0;
+int heightBST(BSTnode *curr) {
+    if (curr == NULL) {
+        return 0;
+    }
+    
+    return Max(heightBST(curr->left), heightBST(curr->right)) + 1;
 }
 
 void destroyBST(BSTnode *node)
