@@ -24,7 +24,11 @@ int Max(int a, int b)
 
 BSTnode *insertBST(BSTnode *node, int item)
 {
-    return NULL;
+    if (node == NULL) {
+        node = malloc(sizeof(BSTnode));
+        
+    }
+    
 }
 
 void printInorderBST(BSTnode *node)
